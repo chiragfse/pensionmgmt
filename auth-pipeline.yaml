@@ -20,7 +20,7 @@ variables:
   dockerRegistryServiceConnection: '1b98377c-0504-4085-bc0f-1e546902abda'
   imageRepository: 'auth'
   containerRegistry: 'pensionmgmt.azurecr.io'
-  dockerfilePath: 'pensionmgmt/PensionerDetailsService/PensionerDetailsService/Dockerfile'
+  dockerfilePath: 'pensionmgmt\PensionerDetailsService\PensionerDetailsService\Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'pensionmgmt2d4a-auth'
 
