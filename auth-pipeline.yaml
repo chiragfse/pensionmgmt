@@ -10,7 +10,6 @@ trigger:
       include:
         - pensionmgmt/PensionerDetailsService/PensionerDetailsService/*
         - manifests/auth.yaml
-
 resources:
 - repo: self
 
@@ -44,6 +43,7 @@ stages:
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
+        buildContext: $(Build.SourcesDirectory)/pensionmgmt
         tags: |
           $(tag)
 
