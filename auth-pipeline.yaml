@@ -3,7 +3,13 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-- main
+    branches:
+      include:
+        - main
+    paths:
+      include:
+        - pensionmgmt/PensionerDetailsService/PensionerDetailsService/*
+        - manifests/auth.yaml
 
 resources:
 - repo: self
@@ -12,9 +18,9 @@ variables:
 
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '1b98377c-0504-4085-bc0f-1e546902abda'
-  imageRepository: 'chiragfsepensionmgmt'
+  imageRepository: 'auth'
   containerRegistry: 'pensionmgmt.azurecr.io'
-  dockerfilePath: '**/Dockerfile'
+  dockerfilePath: 'pensionmgmt/PensionerDetailsService/PensionerDetailsService/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'pensionmgmt2d4a-auth'
 
@@ -38,6 +44,7 @@ stages:
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
+        buildContext: $(Build.SourcesDirectory)/pensionmgmt
         tags: |
           $(tag)
 
@@ -70,8 +77,7 @@ stages:
             inputs:
               action: deploy
               manifests: |
-                $(Pipeline.Workspace)/manifests/deployment.yml
-                $(Pipeline.Workspace)/manifests/service.yml
+                $(Pipeline.Workspace)/manifests/auth.yaml
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
