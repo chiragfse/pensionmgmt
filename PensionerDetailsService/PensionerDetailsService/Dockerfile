@@ -7,10 +7,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
-COPY ["PensionerDetailsService/PensionerDetailsService.csproj", "PensionerDetailsService/"]
-RUN dotnet restore "PensionerDetailsService/PensionerDetailsService.csproj"
+COPY ["PensionerDetailsService/PensionerDetailsService/PensionerDetailsService.csproj", "PensionerDetailsService/PensionerDetailsService/"]
+RUN dotnet restore "PensionerDetailsService/PensionerDetailsService/PensionerDetailsService.csproj"
 COPY . .
-WORKDIR "/src/PensionerDetailsService"
+WORKDIR "/src/PensionerDetailsService/PensionerDetailsService"
 RUN dotnet build "PensionerDetailsService.csproj" -c Release -o /app/build
 
 FROM build AS publish
